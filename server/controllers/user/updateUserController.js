@@ -13,7 +13,7 @@ const updateUserController = async (req, res) => {
             req.body.password = await bcrypt.hash(req.body.password, salt);
         }
 
-        const user = await User.findByIdAndUpdate(id, {$set: req.body}).select("-password")
+         const user = await User.findByIdAndUpdate(id, { $set: req.body }, { new: true }).select("-password")
 
         res.status(200).json(user)
 
