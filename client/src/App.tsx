@@ -1,14 +1,13 @@
-import { Button } from "./components/ui/button"
+import { Outlet } from "react-router";
 
+const App = () => {
+ return (
+  <>
+   <div className="min-h-screen bg-white text-black">
+    <Outlet />
+   </div>
+  </>
+ );
+};
 
-function App() {
-
-  return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1>Hello World</h1>
-      <Button>Click me</Button>
-    </div>
-  )
-}
-
-export default App
+export default App;

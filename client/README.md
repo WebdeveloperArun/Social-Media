@@ -51,4 +51,73 @@ export default tseslint.config({
     ...reactDom.configs.recommended.rules,
   },
 })
+
+
+future code : "use client"
+
+import Image from "next/image"
+import {
+  Search,
+  Bell,
+  MessageSquare,
+  Home,
+  Rss,
+  MessageCircle,
+  Play,
+  Users,
+  Bookmark,
+  HelpCircle,
+  Briefcase,
+  Calendar,
+  GraduationCap,
+  MoreHorizontal,
+  MapPin,
+  Tag,
+  ImageIcon,
+  Smile,
+  Share2,
+  MoreVertical,
+  Me  nu,
+  X,
+  Gift,
+} from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { useState } from "react"
+
+export default function SocialMediaApp() {
+  return <ResponsiveLayout />
+}
+
+function ResponsiveLayout() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [rightSidebarOpen, setRightSidebarOpen] = useState(false)
+
+  return (
+    <div className="min-h-screen bg-white text-black">
+      {/* Header */}
+      
+
+      {/* Main Content */}
+      <main>
+        {/* Mobile Menu Overlay */}
+       
+
+        {/* Left Sidebar - Navigation */}
+       
+
+        {/* Right Sidebar Overlay */}
+       
+
+        {/* Right Sidebar */}
+        
+
+        {/* Center - Feed */}
+        
+      </main>
+
+      {/* Bottom Navigation - Only visible on small screens */}
+    </div>
+  )
+}
+
 ```
