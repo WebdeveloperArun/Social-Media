@@ -14,6 +14,9 @@ export function SignupForm({
  className,
  ...props
 }: React.ComponentProps<"div">) {
+
+
+
  return (
   <div className={cn("flex flex-col gap-6", className)} {...props}>
    <Card>
@@ -27,7 +30,7 @@ export function SignupForm({
      <form>
       <div className="flex flex-col gap-6">
        <div className="grid gap-3">
-        <Label htmlFor="name">Full Name</Label>
+        <Label htmlFor="name">Username</Label>
         <Input id="name" type="text" placeholder="John Doe" required />
        </div>
        <div className="grid gap-3">
@@ -53,7 +56,7 @@ export function SignupForm({
       </div>
       <div className="mt-4 text-center text-sm">
        Already have an account?{" "}
-       <a href="#" className="underline underline-offset-4">
+       <a href="/login" className="underline underline-offset-4">
         Log in
        </a>
       </div>
