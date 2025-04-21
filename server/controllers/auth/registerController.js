@@ -2,20 +2,31 @@ import User from "../../models/user.model.js";
 import bcrypt from "bcryptjs";
 
 const registerController = async (req, res) => {
- try {
-  if (!req.body.email || !req.body.password || !req.body.username) {
-   return res.status(400).json({ message: "Please fill in all fields" });
-  }
+    console.log(req.body);
+    
+    try {
+        if (!req.body.email || !req.body.password || !req.body.username) {
+            return res.status(400).json({ message: "Please fill in all fields" });
+        }
 
-  const salt = await bcrypt.genSalt(10);
-  req.body.password = await bcrypt.hash(req.body.password, salt);
-  const user = new User(req.body).select("-password");
-  await user.save();
+        const existedUser = await User.findOne({ email: req.body.email });
+        if (existedUser) {
+            return res.status(400).json({ message: "User already exists" });
+        }
 
-  res.status(201).json(user);
- } catch (error) {
-  res.status(500).json({ message: error.message });
- }
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+        const user = new User({ email: req.body.email, username:req.body.username, password: hashedPassword });
+        await user.save();
+
+        const userObj = user.toObject();
+        delete userObj.password;
+
+        res.status(201).json(userObj);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 };
 
 export default registerController;

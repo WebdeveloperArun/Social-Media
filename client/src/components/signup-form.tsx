@@ -9,13 +9,33 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useForm } from "react-hook-form";
+import { useSignup } from "@/state/api";
+import React from "react";
+import { useMutation } from "@tanstack/react-query";
+import { User } from "@/types";
 
 export function SignupForm({
  className,
  ...props
 }: React.ComponentProps<"div">) {
 
+ const { register, handleSubmit } = useForm<User>();
+ const { mutate } = useMutation({
+  mutationFn: (values: User) => useSignup(values),
+  onSuccess: () => {
+    console.log("success");
+  },
+  onError: (error) => {
+      console.log("error", error);
+  }
+ });
 
+ const onSubmit = (data: User) => {
+    console.log(data);
+    
+  mutate(data);
+ };
 
  return (
   <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -27,23 +47,36 @@ export function SignupForm({
      </CardDescription>
     </CardHeader>
     <CardContent>
-     <form>
+     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-6">
        <div className="grid gap-3">
         <Label htmlFor="name">Username</Label>
-        <Input id="name" type="text" placeholder="John Doe" required />
+        <Input
+         {...register("username")}
+         id="name"
+         type="text"
+         placeholder="John Doe"
+         required
+        />
        </div>
        <div className="grid gap-3">
         <Label htmlFor="email">Email</Label>
-        <Input id="email" type="email" placeholder="m@example.com" required />
+        <Input
+         {...register("email")}
+         id="email"
+         type="email"
+         placeholder="m@example.com"
+         required
+        />
        </div>
        <div className="grid gap-3">
         <Label htmlFor="password">Password</Label>
-        <Input id="password" type="password" required />
-       </div>
-       <div className="grid gap-3">
-        <Label htmlFor="confirmPassword">Confirm Password</Label>
-        <Input id="confirmPassword" type="password" required />
+        <Input
+         {...register("password")}
+         id="password"
+         type="password"
+         required
+        />
        </div>
        <div className="flex flex-col gap-3">
         <Button type="submit" className="w-full">

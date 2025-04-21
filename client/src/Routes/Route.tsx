@@ -9,17 +9,18 @@ import App from "@/App";
 
 export const router = createBrowserRouter([
  {
+  path: "/",
   element: <App />,
   children: [
    {
-    path: "/home",
+    path: "/home",  
     Component: HomePage,
     children: [
      {
       path: "/home/profile/:username",
       Component: UserProfilePage,
      },
-    ]
+    ],
    },
 
    // Standalone routes (no shared layout from HomePage)

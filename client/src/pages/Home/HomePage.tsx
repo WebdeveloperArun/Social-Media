@@ -8,7 +8,6 @@ import RightSidebar from "@/components/right-sidebar";
 import Feed from "@/components/feed";
 import MobileNavigation from "@/components/mobile-navigation";
 import MobileSearch from "@/components/mobile-search";
-import { log } from "console";
 
 const HomePage = () => {
  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -20,7 +19,6 @@ const HomePage = () => {
 
  const isProfilePage = pathname !== "/home" && pathname !== "/home/" && pathname !== "/home/profile";
 
- console.log(isProfilePage);
  
 
  useEffect(() => {
