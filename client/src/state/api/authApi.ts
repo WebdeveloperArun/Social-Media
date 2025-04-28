@@ -29,31 +29,3 @@ export const useLogin = async (data: User) => {
  }
  return response.json();
 };
-
-export const getUserById = async (userId: string) => {
- const response = await fetch(`http://localhost:8000/api/users/${userId}`, {
-  method: "GET",
-  headers: {
-   "Content-Type": "application/json",
-  },
-  credentials: "include"
- });
- if (!response.ok) {
-  throw new Error(response.statusText);
- }
- return response.json();
-};
-
-export const getCurrentUser = async () => {
- const response = await fetch("http://localhost:8000/api/users/current", {
-  method: "GET",
-  headers: {
-   "Content-Type": "application/json",
-  },
-  credentials: "include"
- });
- if (!response.ok) {
-  throw new Error(response.statusText);
- }
- return response.json();
-};

@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
-import { useSignup } from "@/state/api";
+import { useSignup } from "@/state/api/authApi";
 import React from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { User } from "@/types";

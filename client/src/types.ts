@@ -11,3 +11,10 @@ export interface User {
  isAdmin?: boolean;
  bio?: string;
 }
+
+export interface Post {
+    userId: string;
+    title: string;
+    image: string;
+    likes: string[];
+}
