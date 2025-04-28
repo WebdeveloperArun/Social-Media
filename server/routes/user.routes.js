@@ -6,9 +6,11 @@ import getFollowersController from "../controllers/user/getFollowersController.j
 import followUserController from "../controllers/user/followUserController.js";
 import deleteUserController from "../controllers/user/deleteUserController.js";
 import updateUserController from "../controllers/user/updateUserController.js";
+import getCurrentUserController from "../controllers/user/getCurrentUserController.js";
 
 const router = Router();
 
+router.get("/current", getCurrentUserController);
 router.get("/:id", getUserController);
 router.post("/follow/:id", followUserController);
 router.post("/unfollow/:id", unfollowUserController);

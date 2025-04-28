@@ -12,28 +12,36 @@ import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { useSignup } from "@/state/api";
 import React from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { User } from "@/types";
+import { useAppDispatch } from "@/hooks/reduxHooks";
+import { login } from "@/state/reduxSlice/userSlice";
+import { useNavigate } from "react-router";
 
 export function SignupForm({
  className,
  ...props
 }: React.ComponentProps<"div">) {
-
  const { register, handleSubmit } = useForm<User>();
+ const dispatch = useAppDispatch();
+ const navigate = useNavigate()
+ const queryClient = useQueryClient();
+
  const { mutate } = useMutation({
   mutationFn: (values: User) => useSignup(values),
-  onSuccess: () => {
-    console.log("success");
+  onSuccess: (data) => {
+    queryClient.invalidateQueries({ queryKey: ["user"] });
+   dispatch(login(data));
+   navigate("/");
   },
   onError: (error) => {
-      console.log("error", error);
-  }
+   console.log("error", error);
+  },
  });
 
  const onSubmit = (data: User) => {
-    console.log(data);
-    
+  console.log(data);
+
   mutate(data);
  };
 

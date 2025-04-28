@@ -19,7 +19,10 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan("common"));
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true
+}));
 
 // Routes
 app.use("/api/auth", authRoutes);
@@ -27,7 +30,7 @@ app.use("/api/posts", postRoutes);
 app.use("/api/users", userRoutes);
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, ).then(() => {
+mongoose.connect(process.env.MONGO_URI,).then(() => {
     console.log("Database connected");
 });
 

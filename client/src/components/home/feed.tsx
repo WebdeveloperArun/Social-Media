@@ -1,20 +1,9 @@
-import CreatePost from "@/components/create-post";
-import Post from "./post";
+import CreatePost from "@/components/ui/create-post";
+import Post from "../ui/post";
 
-interface FeedProps {
- mobileMenuOpen: boolean;
- rightSidebarOpen: boolean;
-}
-
-export default function Feed({ mobileMenuOpen, rightSidebarOpen }: FeedProps) {
+export default function Feed() {
  return (
-  <div
-   className={`flex-1 max-w-2xl w-full h-[calc(100vh-64px)] overflow-y-auto no-scrollbar ${
-    mobileMenuOpen || rightSidebarOpen
-     ? "opacity-50 md:opacity-100"
-     : "opacity-100"
-   }`}
-  >
+  <div className="flex-1 max-w-2xl w-full h-[calc(100vh-64px)] overflow-y-auto no-scrollbar opacity-50 md:opacity-100">
    <div className="p-4">
     <CreatePost />
     <Post
@@ -23,15 +12,12 @@ export default function Feed({ mobileMenuOpen, rightSidebarOpen }: FeedProps) {
      content="Love For All, Hatred For None."
      imageUrl="/placeholder.svg?height=400&width=600"
     />
-
-    {/* Adding more posts to demonstrate scrolling */}
     <Post
      username="Alex Durden"
      timeAgo="15 mins ago"
      content="Every moment is a fresh beginning."
      imageUrl="/placeholder.svg?height=400&width=600"
     />
-
     <Post
      username="Janell Shrum"
      timeAgo="1 hour ago"

@@ -1,5 +1,6 @@
 import User from "../../models/user.model.js";
 import bcrypt from "bcryptjs";
+import { setUser } from "../../services/auth.js";
 
 const registerController = async (req, res) => {
     console.log(req.body);
@@ -23,6 +24,11 @@ const registerController = async (req, res) => {
         const userObj = user.toObject();
         delete userObj.password;
 
+        const token = setUser(user._id);
+
+        console.log("token;", token);
+        
+        res.cookie("userId", token, { httpOnly: true });
         res.status(201).json(userObj);
     } catch (error) {
         res.status(500).json({ message: error.message });
