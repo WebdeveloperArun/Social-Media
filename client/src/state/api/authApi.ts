@@ -1,4 +1,4 @@
-import { User } from "@/types";
+import { LoginData, User } from "@/types";
 
 export const useSignup = async (data: User) => {
  const response = await fetch("http://localhost:8000/api/auth/register", {
@@ -15,7 +15,7 @@ export const useSignup = async (data: User) => {
  return response.json();
 };
 
-export const useLogin = async (data: User) => {
+export const useLogin = async (data: LoginData) => {
  const response = await fetch("http://localhost:8000/api/auth/login", {
   method: "POST",
   headers: {

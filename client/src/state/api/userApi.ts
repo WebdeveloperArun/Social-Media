@@ -1,6 +1,6 @@
 import { User } from "@/types";
 
-export const getUserById = async (userId: string) => {
+export const getUserById = async (userId: string | undefined) => {
  const response = await fetch(`http://localhost:8000/api/users/${userId}`, {
   method: "GET",
   headers: {

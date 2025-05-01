@@ -8,10 +8,10 @@ const setUser = (id) => {
 
 const getUser = (token) => {
     try {
-        if (!id) return null;
+        if (!token) return null;
         return jwt.verify(token, process.env.SECRET_KEY);
     } catch (error) {
-        console.log("getUser error: ",error);
+        console.log("getUser error: ", error);
     }
 }
 

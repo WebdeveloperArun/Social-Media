@@ -10,39 +10,50 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 import UserTabs from "@/components/profile/tabs";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import { useQuery } from "@tanstack/react-query";
+import { getUserById } from "@/state/api/userApi";
 
 export default function ProfilePage() {
  const [activeTab, setActiveTab] = useState("posts");
- const { username } = useParams<{ username: string }>();
- const userdata = useSelector((state: any) => state.user?.userData);
+ const { userId } = useParams();
+ const userdata = useAppSelector((state: any) => state.userReducer?.userData);
 
-//   if (userdata === undefined) {
-//    return <div>Error: 404 not found</div>;
-//   }
 
- // Mock user data
+  const {data} = useQuery({
+   queryKey: ["user", userId],
+   queryFn: () => getUserById(userId),
+  });
+
+  console.log("profileData", data);
+  
+
+ 
  const user = {
-  name: "arun",
-  username: "arunkumar",
-  bio: "hallo",
-  email: "1Bc8o@example.com",
-  location: "New York, USA",
+  name: data?.username,
+  username: data?.username,
+  bio: data?.bio,
+  email: data?.email,
+  location: "India",
   website: "www.example.com",
-  joinedDate: "January 2020",
-  followers: [],
-  following: [],
+  joinedDate: "2022-01-01",
+  followers: data?.followers.length,
+  following: data?.followings.length,
   posts: 89,
-  coverImage: "/placeholder.svg",
-  profileImage: "/placeholder.svg",
+  coverImage:
+   data?.coverImage ||
+   "https://img.freepik.com/free-photo/blue-teal-sand-paper_53876-92791.jpg?t=st=1746076980~exp=1746080580~hmac=07b0ab34d1b7484862b08aa9100d6101f72e1777157a9a6c0f2958727fd291a7&w=740",
+  profileImage:
+   data?.profileImage ||
+   "https://img.freepik.com/free-vector/user-blue-gradient_78370-4692.jpg?t=st=1746074005~exp=1746077605~hmac=53c3b881cb9e53c0cc16908e561ac2f1c8e27fba6d6f2de73b53890b53621b86&w=740",
  };
 
  return (
   <div className="flex-1 h-[calc(100vh-64px)] overflow-y-auto">
    <div className="relative">
     <div className="absolute top-4 left-4 z-10">
-     <Link to="/home">
+     <Link to="/">
       <Button
        variant="outline"
        size="icon"
@@ -62,7 +73,7 @@ export default function ProfilePage() {
     </div>
 
     <div className="px-4">
-     <div className="relative -mt-16 md:-mt-20 flex flex-col md:flex-row md:items-end md:justify-between">
+     <div className="relative -mt-16 md:-mt-20 flex flex-col md:flex-row md:items-center md:justify-between">
       <div className="flex flex-col md:flex-row md:items-end gap-4">
        <div className="w-32 h-32 rounded-full border-4 border-white overflow-hidden relative">
         <img
@@ -71,21 +82,25 @@ export default function ProfilePage() {
          className="object-cover w-full h-full"
         />
        </div>
-       <div className="mt-2 md:mb-2">
+       <div className="md:mb-12">
         <h1 className="text-2xl font-bold">{user.name}</h1>
-        <p className="text-gray-500">@{user.username}</p>
+        <p className="text-white">@{user.username}</p>
        </div>
       </div>
 
       <div className="flex gap-2 mt-4 md:mt-0 md:mb-2">
-       <Button variant="outline" className="rounded-full">
-        <Edit className="h-4 w-4 mr-2" />
-        Edit Profile
-       </Button>
-       <Button className="bg-black text-white hover:bg-gray-800 rounded-full">
-        <UserPlus className="h-4 w-4 mr-2" />
-        Follow
-       </Button>
+       {userdata?._id === data?._id ? (
+        <Button variant="outline" className="rounded-full">
+         <Edit className="h-8 w-4 mr-2" />
+         Edit Profile
+        </Button>
+       ) : (
+        <Button className="bg-black text-white hover:bg-gray-800 rounded-full">
+         <UserPlus className="h-8 w-4 mr-2" />
+         Follow
+        </Button>
+       )}
+
        <Button variant="outline" className="rounded-full p-0 w-10 h-10">
         <MessageSquare className="h-4 w-4" />
        </Button>
@@ -116,11 +131,11 @@ export default function ProfilePage() {
 
       <div className="flex gap-4 mt-4 text-sm">
        <div>
-        <span className="font-bold">{user.following.length}</span>{" "}
+        <span className="font-bold">{user.following}</span>{" "}
         <span className="text-gray-500">Following</span>
        </div>
        <div>
-        <span className="font-bold">{user.followers.length}</span>{" "}
+        <span className="font-bold">{user.followers}</span>{" "}
         <span className="text-gray-500">Followers</span>
        </div>
        <div>

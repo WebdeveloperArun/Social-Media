@@ -5,6 +5,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import helmet from "helmet";
+import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.routes.js";
 import postRoutes from "./routes/post.routes.js";
 import userRoutes from "./routes/user.routes.js";
@@ -18,6 +19,7 @@ app.use(helmet());
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(morgan("common"));
 app.use(cors({
     origin: "http://localhost:5173",

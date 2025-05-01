@@ -9,6 +9,9 @@ import {
  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAppSelector } from "@/hooks/reduxHooks";
+import { useNavigate } from "react-router";
+import { User } from "@/types.ts";
 
 interface HeaderProps {
  mobileMenuOpen: boolean;
@@ -23,6 +26,12 @@ export default function Header({
  rightSidebarOpen,
  setRightSidebarOpen,
 }: HeaderProps) {
+ const navigate = useNavigate();
+ const userData = useAppSelector(
+  (state) => state.userReducer.userData
+ ) as User | null;
+ console.log("userData", userData);
+
  return (
   <header className="sticky top-0 z-50 bg-black text-white p-3 flex items-center justify-between border-b border-gray-200 h-16">
    <div className="flex items-center gap-2">
@@ -79,11 +88,17 @@ export default function Header({
      <Users className="h-5 w-5" />
     </Button>
     <img
-     src="/placeholder.svg?height=32&width=32"
+     onClick={() =>
+      userData?.username && navigate(`/profile/${userData._id}`)
+     }
+     src={
+      userData?.profilePicture ||
+      "https://img.freepik.com/free-vector/user-blue-gradient_78370-4692.jpg?t=st=1746074005~exp=1746077605~hmac=53c3b881cb9e53c0cc16908e561ac2f1c8e27fba6d6f2de73b53890b53621b86&w=740"
+     }
      alt="Profile"
      width={32}
      height={32}
-     className="rounded-full border-2 border-white"
+     className="rounded-full border-white"
     />
    </div>
   </header>

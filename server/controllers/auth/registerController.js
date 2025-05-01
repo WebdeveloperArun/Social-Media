@@ -25,8 +25,6 @@ const registerController = async (req, res) => {
         delete userObj.password;
 
         const token = setUser(user._id);
-
-        console.log("token;", token);
         
         res.cookie("userId", token, { httpOnly: true });
         res.status(201).json(userObj);
