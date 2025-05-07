@@ -9,6 +9,7 @@ import { useAppDispatch } from "./hooks/reduxHooks";
 import { login } from "./state/reduxSlice/userSlice";
 import Layout from "./components/layout/layout";
 import Protected from "./components/layout/auth-layout";
+import { useEffect } from "react";
 
 const App = () => {
  const dispatch = useAppDispatch();
@@ -16,16 +17,15 @@ const App = () => {
  const { data, isLoading } = useQuery({
   queryKey: ["user"],
   queryFn: () => getCurrentUser(),
+  retry: false,
+  refetchOnWindowFocus: false,
  });
 
- // Only dispatch login action if data exists
- if (data) {
-  dispatch(login({ userData: data }));
- } else {
-    console.log("no data");
- }
-
- console.log("currentUserData:", data);
+ useEffect(() => {
+  if (data) {
+   dispatch(login({ userData: data }));
+  }
+ }, [data, dispatch]);
 
  if (isLoading) {
   return <div>Loading...</div>;

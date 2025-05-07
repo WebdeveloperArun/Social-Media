@@ -5,6 +5,7 @@ import { getUser } from "../../services/auth.js";
 
 const getCurrentUserController = async (req, res) => {
     try {
+        console.log(req.cookies);
         
         const userId = getUser(req.cookies.userId);
         

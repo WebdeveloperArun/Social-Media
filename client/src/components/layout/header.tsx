@@ -30,7 +30,6 @@ export default function Header({
  const userData = useAppSelector(
   (state) => state.userReducer.userData
  ) as User | null;
- console.log("userData", userData);
 
  return (
   <header className="sticky top-0 z-50 bg-black text-white p-3 flex items-center justify-between border-b border-gray-200 h-16">

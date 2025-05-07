@@ -17,9 +17,6 @@ export const getUserById = async (userId: string | undefined) => {
 export const getCurrentUser = async () => {
  const response = await fetch("http://localhost:8000/api/users/current", {
   method: "GET",
-  headers: {
-   "Content-Type": "application/json",
-  },
   credentials: "include",
  });
  if (!response.ok) {
@@ -116,8 +113,8 @@ export const updateUser = async (id: string, data: User) => {
   headers: {
    "Content-Type": "application/json",
   },
-  body: JSON.stringify(data),
   credentials: "include",
+  body: JSON.stringify(data),
  });
  if (!response.ok) {
   throw new Error(response.statusText);

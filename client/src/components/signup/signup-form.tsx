@@ -40,8 +40,6 @@ export function SignupForm({
  });
 
  const onSubmit = (data: User) => {
-  console.log(data);
-
   mutate(data);
  };
 

@@ -4,10 +4,11 @@ import User from "../../models/user.model.js";
 
 const updateUserController = async (req, res) => {
     try {
+        console.log("updata controller:",req.body);
      const { id } = req.params;
-     const { userId } = req.body;
+     const { _id } = req.body;
 
-     if (id === userId || req.user.isAdmin) {
+     if (id === _id || req.user.isAdmin) {
         if (req.body.password) {
             const salt = await bcrypt.genSalt(10);
             req.body.password = await bcrypt.hash(req.body.password, salt);
