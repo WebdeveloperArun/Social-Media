@@ -95,7 +95,7 @@ export const getFriendPosts = async (id: string) => {
  }
  return response.json();
 };
-export const getUserPosts = async (id: string) => {
+export const getUserPosts = async (id: string | undefined) => {
  const response = await fetch(`http://localhost:8000/api/posts/getUserPosts/${id}`, {
   method: "GET",
   headers: {
@@ -106,5 +106,8 @@ export const getUserPosts = async (id: string) => {
  if (!response.ok) {
   throw new Error(response.statusText);
  }
- return response.json();
+ const data = await response.json()
+ console.log("datain get user posts", data);
+ 
+ return data;
 };

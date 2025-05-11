@@ -1,32 +1,38 @@
+import { useQuery } from "@tanstack/react-query";
+import Post from "../ui/post";
+import { getUserPosts } from "@/state/api/postApi";
+import { Post as PostType } from "@/types";
 
+const UserPosts = ({ userId, username }: { userId: string, username: string }) => {
+ const { data, isLoading } = useQuery({
+  queryKey: ["post"],
+  queryFn: () => getUserPosts(userId),
+  retry: false,
+  refetchOnWindowFocus: false,
+ });
+ console.log("userPosts", data);
 
-import Post from '../ui/post';
+  if (isLoading) {
+   return <div>Loading...</div>;
+  }
 
-const UserPosts = ({user}: {user: {username: string}}) => {
-  return (
-   <div>
+  if (!data) {
+   return <div>No posts found</div>;
+  }
+
+ 
+ return (
+  <div>
+   {data.map((post: PostType) => (
     <Post
-     username={user.username}
-     timeAgo="2 days ago"
-     content="Just visited the most amazing place! The views were breathtaking."
-     imageUrl="/placeholder.svg?height=400&width=600"
+     username={username}
+     timeAgo={post.createdAt!}
+     content={post.title!}
+     imageUrl={post.image!}
     />
-
-    <Post
-     username={user.username}
-     timeAgo="1 week ago"
-     content="Working on some exciting new projects. Can't wait to share them with you all!"
-     imageUrl="/placeholder.svg?height=400&width=600"
-    />
-
-    <Post
-     username={user.username}
-     timeAgo="2 weeks ago"
-     content="Throwback to this amazing sunset. Nature is truly incredible."
-     imageUrl="/placeholder.svg?height=400&width=600"
-    />
-   </div>
-  );
-}
+   ))}
+  </div>
+ );
+};
 
 export default UserPosts;

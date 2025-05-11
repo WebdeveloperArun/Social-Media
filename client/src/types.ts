@@ -14,10 +14,12 @@ export interface User {
 }
 
 export interface Post {
-    userId: string;
-    title: string;
-    image: string;
-    likes: string[];
+    _id?: string;
+    userId?: string;
+    title?: string;
+    image?: string;
+    likes?: string[];
+    createdAt?: string;
 }
 
 export interface LoginData {

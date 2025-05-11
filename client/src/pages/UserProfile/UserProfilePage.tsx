@@ -32,6 +32,7 @@ export default function ProfilePage() {
  
 
  const user = {
+  _id: data?._id,
   name: data?.username,
   username: data?.username,
   bio: data?.bio,
@@ -39,8 +40,8 @@ export default function ProfilePage() {
   location: "India",
   website: "www.example.com",
   joinedDate: "2022-01-01",
-  followers: data?.followers.length,
-  following: data?.followings.length,
+  followers: data?.followers,
+  following: data?.followings,
   posts: 89,
   coverPicture:
    data?.coverPicture ||
@@ -138,11 +139,11 @@ export default function ProfilePage() {
 
        <div className="flex gap-4 mt-4 text-sm">
         <div>
-         <span className="font-bold">{user.following}</span>{" "}
+         <span className="font-bold">{user.following.length}</span>{" "}
          <span className="text-gray-500">Following</span>
         </div>
         <div>
-         <span className="font-bold">{user.followers}</span>{" "}
+         <span className="font-bold">{user.followers.length}</span>{" "}
          <span className="text-gray-500">Followers</span>
         </div>
         <div>

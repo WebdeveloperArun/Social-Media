@@ -40,7 +40,7 @@ export const deleteUser = async (id: string, userId: string) => {
  return response.json();
 };
 
-export const followUser = async (id: string, userId: string) => {
+export const followUser = async (id: string, userId: string | undefined) => {
  const response = await fetch(`http://localhost:8000/api/users/follow/${id}`, {
   method: "POST",
   headers: {
@@ -55,7 +55,7 @@ export const followUser = async (id: string, userId: string) => {
  return response.json();
 };
 
-export const unFollowUser = async (id: string, userId: string) => {
+export const unFollowUser = async (id: string, userId: string | undefined) => {
  const response = await fetch(
   `http://localhost:8000/api/users/unfollow/${id}`,
   {
